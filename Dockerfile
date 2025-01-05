@@ -1,16 +1,23 @@
-FROM oven/bun:1
+FROM node:22-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends python3 sqlite3 libsqlite3-dev make g++ && apt-get clean
+RUN apt update && \
+    apt install -y --no-install-recommends python3 sqlite3 libsqlite3-dev make g++ curl unzip ca-certificates && \
+    update-ca-certificates && \
+    apt-get clean && \
+    curl -o install.sh https://bun.sh/install && \
+    chmod +x install.sh && \
+    ./install.sh && \
+    mv ~/.bun/bin/bun /usr/local/bin/bun
 
 COPY package.json bun.lock ./
 RUN bun install
 
 COPY . .
-RUN chmod +x entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-VOLUME /app/data
-ENV DB_FILE_NAME=/app/data/db.sqlite
+VOLUME /data
+ENV DB_FILE_NAME=/data/db.sqlite
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/app/entrypoint.sh" ]
