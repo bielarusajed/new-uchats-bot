@@ -11,8 +11,6 @@ mute.use(onlyAdmin()).command('mute', async ctx => {
     /^(?:(?:(?<weeks>\d+)w)?(?:(?<days>\d+)d)?(?:(?<hours>\d+)h)?(?:(?<minutes>\d+)m)?(?:\s+)?)?(?<reason>.*)?$/;
   const matches = timeRegex.exec(ctx.match);
 
-  console.log(matches);
-
   if (!matches) return ctx.reply('Няправільны фармат');
 
   const weeks = Number.parseInt(matches.groups?.weeks || '0');
