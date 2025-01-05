@@ -1,8 +1,9 @@
 import { Composer } from 'grammy';
+import { onlyAdmin } from 'grammy-middlewares';
 
 const mute = new Composer();
 
-mute.command('mute', async ctx => {
+mute.use(onlyAdmin()).command('mute', async ctx => {
   const arg = ctx.match;
   const matches = arg.match(/(?:(?<weeks>\d+)w)?(?:(?<days>\d+)d)?(?:(?<hours>\d+)h)?(?:(?<minutes>\d+)m)?/);
 
