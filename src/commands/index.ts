@@ -4,7 +4,9 @@ import { muteAdmin } from './mute';
 import { report } from './report';
 import { rules, rulesAdmin } from './rules';
 
-const commands = new Composer().use(rules).use(report);
-const commandsAdmin = new Composer().use(onlyAdmin()).use(rulesAdmin).use(muteAdmin);
+const commands = new Composer();
+commands.use(rules).use(report);
+const commandsAdmin = new Composer();
+commandsAdmin.use(onlyAdmin()).use(rulesAdmin).use(muteAdmin);
 
 export { commands, commandsAdmin };

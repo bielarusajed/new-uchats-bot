@@ -3,7 +3,7 @@ import { onlyAdmin } from 'grammy-middlewares';
 
 const muteAdmin = new Composer();
 
-muteAdmin.use(onlyAdmin()).command('mute', async ctx => {
+muteAdmin.command('mute', async ctx => {
   if (!ctx.message?.reply_to_message?.from?.id) return ctx.reply('Карыстальнік нявызначаны');
   const targetId = ctx.message.reply_to_message.from.id;
 

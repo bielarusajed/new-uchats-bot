@@ -13,7 +13,10 @@ rules.command('rules', async ctx => {
 });
 
 rulesAdmin.command('set_rules', async ctx => {
-  await db.insert(chat).values({ telegramId: ctx.chat.id, rulesMessage: ctx.match });
+  await db
+    .insert(chat)
+    .values({ telegramId: ctx.chat.id, rulesMessage: ctx.match })
+    .onConflictDoUpdate({ target: chat.id, set: { rulesMessage: ctx.match } });
   return ctx.reply('Правілы паспяхова абноўленыя');
 });
 

@@ -2,7 +2,7 @@ import { Composer, type Context } from 'grammy';
 
 const report = new Composer();
 
-async function reportAdmin(ctx: Context) {
+async function reportToAdmins(ctx: Context) {
   if (!ctx.chat) return;
   const admins = await ctx.api.getChatAdministrators(ctx.chat.id);
   for (const admin of admins) {
@@ -16,9 +16,7 @@ async function reportAdmin(ctx: Context) {
   ctx.reply('Адрапартавана!');
 }
 
-report.command(['report', 'admin'], async ctx => {
-  await reportAdmin(ctx);
-});
+report.command(['report', 'admin'], reportToAdmins);
 
 report.on('::mention', async ctx => {
   const isAdmin =
@@ -28,7 +26,7 @@ report.on('::mention', async ctx => {
 
   if (!isAdmin) return;
 
-  await reportAdmin(ctx);
+  await reportToAdmins(ctx);
 });
 
 export { report };
