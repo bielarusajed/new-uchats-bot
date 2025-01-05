@@ -1,10 +1,10 @@
 import { Composer } from 'grammy';
-import { mute } from './mute';
+import { onlyAdmin } from 'grammy-middlewares';
+import { muteAdmin } from './mute';
 import { report } from './report';
-import { rules } from './rules';
+import { rules, rulesAdmin } from './rules';
 
-const commands = new Composer();
+const commands = new Composer().use(rules).use(report);
+const commandsAdmin = new Composer().use(onlyAdmin()).use(rulesAdmin).use(muteAdmin);
 
-commands.use(rules).use(mute).use(report);
-
-export { commands };
+export { commands, commandsAdmin };

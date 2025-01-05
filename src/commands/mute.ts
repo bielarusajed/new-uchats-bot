@@ -1,9 +1,9 @@
 import { Composer } from 'grammy';
 import { onlyAdmin } from 'grammy-middlewares';
 
-const mute = new Composer();
+const muteAdmin = new Composer();
 
-mute.use(onlyAdmin()).command('mute', async ctx => {
+muteAdmin.use(onlyAdmin()).command('mute', async ctx => {
   if (!ctx.message?.reply_to_message?.from?.id) return ctx.reply('Карыстальнік нявызначаны');
   const targetId = ctx.message.reply_to_message.from.id;
 
@@ -65,4 +65,4 @@ mute.use(onlyAdmin()).command('mute', async ctx => {
   await ctx.reply(replyMessage, { parse_mode: 'HTML' });
 });
 
-export { mute };
+export { muteAdmin };

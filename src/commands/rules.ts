@@ -4,6 +4,7 @@ import { db } from '../db';
 import { chat } from '../db/schema';
 
 const rules = new Composer();
+const rulesAdmin = new Composer();
 
 rules.command('rules', async ctx => {
   const chatId = ctx.chat.id;
@@ -11,9 +12,9 @@ rules.command('rules', async ctx => {
   return ctx.reply(rulesMessage?.rulesMessage ?? 'Жыве анархія!');
 });
 
-rules.use(onlyAdmin()).command('set_rules', async ctx => {
+rulesAdmin.command('set_rules', async ctx => {
   await db.insert(chat).values({ telegramId: ctx.chat.id, rulesMessage: ctx.match });
   return ctx.reply('Правілы паспяхова абноўленыя');
 });
 
-export { rules };
+export { rules, rulesAdmin };

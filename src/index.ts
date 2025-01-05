@@ -1,9 +1,9 @@
 import { Bot, GrammyError, HttpError } from 'grammy';
-import { commands } from './commands';
+import { commands, commandsAdmin } from './commands';
 
 const bot = new Bot(Bun.env.BOT_TOKEN);
 
-bot.use(commands);
+bot.use(commands).use(commandsAdmin);
 
 bot.catch(err => {
   const ctx = err.ctx;
