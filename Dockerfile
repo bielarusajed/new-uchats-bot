@@ -7,7 +7,7 @@ RUN apt update && \
     update-ca-certificates && \
     apt-get clean && \
     export ARCH=$(uname -m) && \
-    export BUN_ARCH=$(if [ "$ARCH" = "x86_64" ]; then echo "${ARCH}-baseline"; else echo "${ARCH}"; fi) && \
+    export BUN_ARCH=$(if [ "$ARCH" = "x86_64" ]; then echo "x64-baseline"; else echo "${ARCH}"; fi) && \
     wget "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-${BUN_ARCH}.zip" && \
     unzip bun-linux-${BUN_ARCH}.zip && \
     mv bun-linux-${BUN_ARCH}/bun /usr/local/bin/bun && \
